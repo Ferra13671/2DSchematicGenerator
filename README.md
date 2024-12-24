@@ -25,4 +25,10 @@ At the time of release, the program is optimized to the limit and also has a cou
 5. Run the program again using 'start.bat' and wait for the program to finish running.
 6. Take the resulting schematic from the 'Output' folder
 
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+
 ![Quote](https://raw.githubusercontent.com/Ferra13671/2DSchematicGenerator/main/quote.png)
