@@ -1,0 +1,20 @@
+{
+  "inFolder": "Include",
+  "outFolder": "Output",
+  "DataVersion": 3700,
+  "SizeScale": 1.0,
+  "DisableSaveAirData": true,
+  "MaxThreads": 4,
+  "palettes": [
+    {
+      "BlockName": "minecraft:obsidian",
+      "Min Red": 0,
+      "Min Green": 0,
+      "Min Blue": 0,
+      "Max Red": 128,
+      "Max Green": 128,
+      "Max Blue": 128,
+      "Priority": 0
+    }
+  ]
+}
