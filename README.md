@@ -1,5 +1,6 @@
 # 2DSchematicGenerator
-Program for creating 2D nbt schemes obsidian (and not only) logos for minecraft.
+Program for creating 2D nbt schemes obsidian (and not only) logos for minecraft. <p>
+**WARNING**: the program does not support the Alpha channel, so creating schematics with the Alpha channel will be incorrect!!!
 
 # Creators
 leha59(e_bannyhop059) and Ferra13671(bebra_tyan)
