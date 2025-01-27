@@ -1,5 +1,5 @@
 plugins {
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+    id('com.github.johnrengelman.shadow') version '8.1.1'
     id 'java'
     id 'maven-publish'
 }
@@ -41,17 +41,6 @@ jar {
     }
 }
 
-javadoc {
-    options.addStringOption("Xdoclint:none", "-quiet")
-    options.encoding = "UTF-8"
-}
-
-tasks.register("javadocJar", Jar) {
-    from javadoc
-    archiveClassifier.set("javadoc")
-}
-
 build {
-    dependsOn javadocJar
     dependsOn(shadowJar)
 }
