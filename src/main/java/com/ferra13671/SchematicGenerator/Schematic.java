@@ -40,7 +40,7 @@ public class Schematic {
     private void createBlockList() {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                Color pixelColor = new Color(bufferedImage.getRGB((int) (x / SchematicGenerator.settings.sizeScale),(int) (y / SchematicGenerator.settings.sizeScale)));
+                int pixelColor = bufferedImage.getRGB((int) (x / SchematicGenerator.settings.sizeScale), (int) (y / SchematicGenerator.settings.sizeScale));
                 int blockState = filterPalettes(pixelColor);
 
                 if (SchematicGenerator.settings.disableSaveAirData)
@@ -58,12 +58,17 @@ public class Schematic {
         }
     }
 
-    private int filterPalettes(Color pixelColor) {
+    private int filterPalettes(int pixelColor) {
+        int pixelRed = pixelColor >> 16 & 255;
+        int pixelGreen = pixelColor >> 8 & 255;
+        int pixelBlue = pixelColor & 255;
+        int pixelAlpha = pixelColor >>> 24;
+
         int value = 0, priority = -1;
         for (Settings.Palette palette : SchematicGenerator.settings.customPalettes) {
             if (palette.paletteInfo().priority < priority) continue;
             if (palette.minColor().equals(palette.maxColor())) {
-                if (palette.minColor().equals(pixelColor)) value = palette.paletteInfo().id;
+                if (palette.minColor().equals(new Color(pixelRed, pixelGreen, pixelBlue, pixelAlpha))) value = palette.paletteInfo().id;
             } else {
                 Color minColor = palette.minColor();
                 Color maxColor = palette.maxColor();
@@ -76,9 +81,15 @@ public class Schematic {
                     maxColor = new Color(tempRed, tempGreen, tempBlue);
                 }
 
-                if (hasInRange(pixelColor.getRed(), minColor.getRed(), maxColor.getRed()) &&
-                        hasInRange(pixelColor.getGreen(), minColor.getGreen(), maxColor.getGreen()) &&
-                        hasInRange(pixelColor.getBlue(), minColor.getBlue(), maxColor.getBlue())
+                if (pixelAlpha < 220) {
+                    pixelRed = 255;
+                    pixelGreen = 255;
+                    pixelBlue = 255;
+                }
+
+                if (hasInRange(pixelRed, minColor.getRed(), maxColor.getRed()) &&
+                        hasInRange(pixelGreen, minColor.getGreen(), maxColor.getGreen()) &&
+                        hasInRange(pixelBlue, minColor.getBlue(), maxColor.getBlue())
                 ) {
                     value = palette.paletteInfo().id;
                     priority = palette.paletteInfo().priority;
