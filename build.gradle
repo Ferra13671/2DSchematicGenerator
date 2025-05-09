@@ -1,11 +1,18 @@
 plugins {
     id('com.github.johnrengelman.shadow') version '8.1.1'
-    id 'java'
+    id 'java-library'
     id 'maven-publish'
 }
 
 group = 'com.ferra13671'
 version = '1.1'
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+    withSourcesJar()
+}
 
 repositories {
     maven {
@@ -43,4 +50,25 @@ jar {
 
 build {
     dependsOn(shadowJar)
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.ferra13671'
+            artifactId = '2d-schematic-generator'
+            artifact source: shadowJar, classifier: null
+            artifact sourcesJar
+        }
+    }
+
+    repositories {
+        mavenLocal()
+        maven {
+            name = "GithubPackages"
+            url = new URI("https://maven.pkg.github.com/Ferra13671/2d-schematic-generator")
+            credentials.username = System.getenv("GITHUB_ACTOR")
+            credentials.password = System.getenv("GITHUB_TOKEN")
+        }
+    }
 }
